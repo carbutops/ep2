@@ -1,0 +1,20 @@
+{% extends "ep2s/base.html" %}
+
+{% block content %}
+
+    <ul>
+
+        {% for topic in topics %}
+
+        <li>{{ topic }} </li>
+
+        {% empty %}
+
+        <li> Não há tópicos </li>
+
+
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
+
