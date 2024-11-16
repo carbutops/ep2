@@ -20,7 +20,7 @@ def topic(request,topic_id):
     return render(request, 'ep2s/topic.html', context)
 
 def new_topic(request):
-    if request.method!= 'POST':
+    if request.method != 'POST':
         form= TopicForm()
     else:
         form= TopicForm(request.POST)
