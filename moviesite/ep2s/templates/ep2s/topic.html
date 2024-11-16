@@ -1,0 +1,27 @@
+{% extends "ep2s/base.html" %}
+
+{% block content %}
+
+    <h2> Tópico: {{ topic }}</h2>
+
+    <p> Entradas: </p>
+
+    <ul>
+        {%for entry in entries%}
+
+        <li>
+            <p> {{ entry.date_added  }}</p>
+            <p> {{entry.text | linebreaks}}</p>
+        </li>
+
+        {%empty%}
+
+        <li>
+            Não há nada
+        </li>
+
+        {%endfor%}
+
+    </ul>
+
+{% endblock content %}
