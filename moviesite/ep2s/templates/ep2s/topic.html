@@ -2,13 +2,13 @@
 
 {% block content %}
 
-    <h1> Tópico: {{ topic }}</h1>
+    <p> Tópico: {{ topic }}</p>
 
     <p> Entradas: </p>
 
-        <p>
+    <p>
             <a href="{%url='new_entry' topic.id%}">Adicione uma Entrada</a>
-        </p>
+    </p>
 
     <ul>
         {%for entry in entries%}
