@@ -32,8 +32,11 @@ def new_topic(request):
 
 def new_entry(request,topic_id):
     topic= Topic.objects.get(id=topic_id)
+    print(topic)
     if request.method != 'POST':
         form= EntryForm()
+        print(form)
+        print('vim por aqui')
 
     else:
         form= EntryForm(data=request.POST)
@@ -41,8 +44,11 @@ def new_entry(request,topic_id):
             new_entry=form.save(commit=False)
             new_entry.topic= topic
             new_entry.save()
+            print('fui kikado')
             return HttpResponseRedirect(reverse('topic', args=topic_id))
+        print('vim por la')
     context={'topic': topic, 'form': form}
+    print(context)
     return render( request, 'ep2s/new_topic.html', context)
 
 
