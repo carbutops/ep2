@@ -49,9 +49,24 @@ def new_entry(request,topic_id):
             return HttpResponseRedirect(reverse('topic', args=topic_id))
         print('vim por la')
     context={'topic': topic, 'form': form}
-    print('contexto')
-    print(context)
 
     return render( request, 'ep2s/new_entry.html', context)
+
+def edit_entry(request,entry_id):
+    entry = Entry.objects.get(id= entry_id)
+    topic = entry.topic
+    if request.method  !='POST':
+        form= EntryForm(instance=entry)
+
+    else:
+        form= EntryForm(insatnce=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('topic', args=topic.id))
+
+    context= {'entry': entry, 'topic': topic, 'form': form}
+
+    return render(request, 'ep2s/edit_entry.html', context)
+
 
 
