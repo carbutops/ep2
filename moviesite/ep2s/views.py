@@ -52,6 +52,6 @@ def new_entry(request,topic_id):
     print('contexto')
     print(context)
 
-    return render( request, 'ep2s/new_topic.html', context)
+    return render( request, 'ep2s/new_entry.html', context)
 
 
