@@ -1,24 +1,23 @@
-{% extends "ep2s/base.html" %}
+{% extends "ep2s/template.html" %}
 
 {% block content %}
+    <div class="topics-container">
+        <h1>Tópicos Disponíveis</h1>
 
-    <ul>
+        <ul class="topics-list">
+            {% for topic in topics %}
+                <li class="topic-item">
+                    <a href="{% url 'topic' topic.id %}" class="topic-link">{{ topic }}</a>
+                </li>
+            {% empty %}
+                <li class="no-topics">
+                    <em>Não há tópicos disponíveis.</em>
+                </li>
+            {% endfor %}
+        </ul>
 
-        {% for topic in topics %}
-
-        <li>
-            <a href="{% url 'topic' topic.id %}">{{ topic }} </a>
-        </li>
-
-        {% empty %}
-
-        <li> Não há tópicos </li>
-
-
-        {% endfor %}
-    </ul>
-
-
-    <a href="{% url 'new_topic' %}"> Adicionar Novo Tópico</a>
+        <p>
+            <a href="{% url 'new_topic' %}" class="btn btn-primary">Adicionar Novo Tópico</a>
+        </p>
+    </div>
 {% endblock content %}
-

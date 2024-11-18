@@ -1,31 +1,38 @@
-{% extends "ep2s/base.html" %}
+{% extends "ep2s/template.html" %}
 
 {% block content %}
+    <div class="topic-container">
+        <h1>{{ topic }}</h1>
 
-    <p> Tópico: {{ topic }}</p>
+        {% if content_html %}
+            <div class="topic-content">
+                {{ content_html|safe }}
+            </div>
+        {% endif %}
 
-    <p> Entradas: </p>
+        <hr>
 
-    <p>
-        <a href="{%url 'new_entry' topic.id%}">Adicione uma Entrada</a>
-    </p>
+        <h2>Entradas:</h2>
 
-    <ul>
-        {%for entry in entries%}
+        <p>
+            <a href="{% url 'new_entry' topic.id %}" class="btn btn-primary">Adicione uma Entrada</a>
+        </p>
 
-        <li>
-            <p> {{ entry.date_added  }}</p>
-            <p> {{entry.text | linebreaks}}</p>
-
-        </li>
-
-        {%empty%}
-
-        <li>
-            Não há nada
-        </li>
-
-        {%endfor%}
-
-    </ul>
+        <ul class="entry-list">
+            {% for entry in entries %}
+                <li class="entry-item">
+                    <div class="entry-date">
+                        <strong>Adicionado em:</strong> {{ entry.date_added|date:"d/m/Y H:i" }}
+                    </div>
+                    <div class="entry-text">
+                        {{ entry.text|linebreaks }}
+                    </div>
+                </li>
+            {% empty %}
+                <li class="entry-item">
+                    <em>Não há entradas disponíveis.</em>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock content %}

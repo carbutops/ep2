@@ -1,13 +1,13 @@
-{% extends "ep2s/base.html" %}
+{% extends "ep2s/template.html" %}
 
 {% block content %}
+    <h1>Adicionar Nova Entrada para o Tópico: {{ topic }}</h1>
 
-
-    <p> Adicione uma entrada</p>
-    <form action="{%url 'new_entry' topic.id%}" method="post">
+    <form action="{% url 'new_entry' topic.id %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="submit"> Adicionar </button>
-
+        <button type="submit" class="btn btn-primary">Adicionar Entrada</button>
     </form>
+
+    <p><a href="{% url 'topic' topic.id %}">Voltar para o Tópico</a></p>
 {% endblock content %}

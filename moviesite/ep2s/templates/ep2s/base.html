@@ -1,4 +1,18 @@
-<a href="{% url 'index' %}">Índice </a> -
-<a href="{% url 'topics' %}">Tópicos </a>
+{% extends "template.html" %}
 
-{% block content %} {% endblock content %}
+{% block content %}
+    <div class="container">
+        <header>
+            <nav>
+                <a href="{% url 'index' %}">Índice</a> -
+                <a href="{% url 'topics' %}">Tópicos</a>
+            </nav>
+        </header>
+
+        <main>
+            {% block main_content %}
+            <!-- O conteúdo específico de cada página será inserido aqui -->
+            {% endblock %}
+        </main>
+    </div>
+{% endblock content %}
