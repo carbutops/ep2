@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Topic(models.Model):
@@ -14,17 +15,12 @@ class Topic(models.Model):
         return self.text
 
 class Entry(models.Model):
-    """Representa uma entrada vinculada a um tópico."""
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    text = models.CharField(max_length=250)
+    text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = 'entries'
+    topic = models.ForeignKey('Topic', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)  # Campo para o usuário
 
     def __str__(self):
-        """Representação do modelo."""
-        return self.text[:50] + '...'
+        return self.text[:50]  # Apenas para visualização no admin
 
 

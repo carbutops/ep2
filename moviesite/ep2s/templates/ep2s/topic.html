@@ -23,6 +23,8 @@
                 <li class="entry-item">
                     <div class="entry-date">
                         <strong>Adicionado em:</strong> {{ entry.date_added|date:"d/m/Y H:i" }}
+                        <br>
+                        <strong>Por:</strong> {{ entry.created_by.username }}
                     </div>
                     <div class="entry-text">
                         {{ entry.text|linebreaks }}

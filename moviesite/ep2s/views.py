@@ -5,6 +5,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+
+
+
+
 def index(request):
     """Página inicial."""
     return render(request, 'ep2s/index.html')
@@ -38,21 +42,23 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'ep2s/new_topic.html', context)
 
+@login_required
 def new_entry(request, topic_id):
-    """Adiciona uma nova entrada a um tópico."""
     topic = get_object_or_404(Topic, id=topic_id)
-    if request.method != 'POST':
-        form = EntryForm()
-    else:
-        form = EntryForm(data=request.POST)
+
+    if request.method == 'POST':
+        form = EntryForm(request.POST)
         if form.is_valid():
             new_entry = form.save(commit=False)
             new_entry.topic = topic
-            new_entry.user = request.user  # Associa o usuário logado à entrada.
+            new_entry.created_by = request.user  # Associando o usuário logado
             new_entry.save()
-            return HttpResponseRedirect(reverse('topic', args=[topic_id]))
-    context = {'topic': topic, 'form': form}
-    return render(request, 'ep2s/new_entry.html', context)
+            return HttpResponseRedirect(reverse('topic',args= topic_id))  # Redireciona para a página do tópico
+    else:
+        form = EntryForm()
+
+    return render(request, 'ep2s/new_entry.html', {'form': form, 'topic': topic})
+
 
 def edit_entry(request, entry_id):
     """Edita uma entrada existente."""

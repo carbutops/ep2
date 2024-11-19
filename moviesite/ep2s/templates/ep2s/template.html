@@ -45,6 +45,11 @@
             <nav>
                 <a href="{% url 'index' %}" class="nav-link">Índice</a> -
                 <a href="{% url 'topics' %}" class="nav-link">Tópicos</a>
+                {%if user.is_authenticated %}
+                    Olá {{user.username}}
+                {% else%}
+                    <a href="{% url 'login' %}" class="nav-link">Login</a>
+                {% endif%}
             </nav>
         </div>
     </header>
