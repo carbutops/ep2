@@ -6,18 +6,17 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 
-
-
-
 def index(request):
     """Página inicial."""
     return render(request, 'ep2s/index.html')
+
 
 def topics(request):
     """Exibe todos os tópicos."""
     topics = Topic.objects.order_by('date_posted')
     context = {'topics': topics}
     return render(request, 'ep2s/topics.html', context)
+
 
 def topic(request, topic_id):
     """Exibe um único tópico e suas entradas."""
@@ -29,6 +28,7 @@ def topic(request, topic_id):
             content_html = file.read()
     context = {'topic': topic, 'entries': entries, 'content_html': content_html}
     return render(request, 'ep2s/topic.html', context)
+
 
 def new_topic(request):
     """Adiciona um novo tópico."""
@@ -42,6 +42,7 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'ep2s/new_topic.html', context)
 
+
 @login_required
 def new_entry(request, topic_id):
     topic = get_object_or_404(Topic, id=topic_id)
@@ -53,7 +54,7 @@ def new_entry(request, topic_id):
             new_entry.topic = topic
             new_entry.created_by = request.user  # Associando o usuário logado
             new_entry.save()
-            return HttpResponseRedirect(reverse('topic',args= topic_id))  # Redireciona para a página do tópico
+            return HttpResponseRedirect(reverse('topic', args=topic_id))  # Redireciona para a página do tópico
     else:
         form = EntryForm()
 
